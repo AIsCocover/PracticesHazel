@@ -2,7 +2,7 @@
 
 // For use by Hazel applications
 
-#include <stdio.h>
+#include <iostream>
 #include "Hazel/Application.h"
 #include "Hazel/Log.h"
 
