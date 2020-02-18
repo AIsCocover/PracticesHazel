@@ -52,7 +52,7 @@ namespace Hazel {
 			CLASS_NAME(Timer);			--> classTimer
 			MERGE(me,To);					-->	meTome
 */
-#define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::type; }\
+#define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::##type; }\
 														   virtual EventType GetEventType() const override { return GetStaticType(); }\
 														   virtual const char* GetName() const override { return #type; }
 
@@ -66,6 +66,8 @@ namespace Hazel {
 	class Event
 	{
 	public:
+		bool m_Handled = false;
+
 		virtual EventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0;
 		virtual int GetCategoryFlags() const = 0;
@@ -75,8 +77,6 @@ namespace Hazel {
 		{
 			return GetCategoryFlags() & category;			// &运算。若flag跟category相同，则返回值跟flag一致。
 		}
-	protected:
-		bool m_Handled = false;
 	};
 
 	class EventDispatcher
@@ -90,7 +90,7 @@ namespace Hazel {
 		template<typename T>
 		bool Dispatch(EventFn<T> func)
 		{
-			if (m_Event.GetEventType() == T::GetStaticType())
+			if (m_Event.GetEventType() == T::GetStaticType())	// 检查待分发的事件m_Event的类型跟定义的模板参数T的类型是否一致。
 			{
 				m_Event.m_Handled = func(*(T*)&m_Event);
 				return true;
