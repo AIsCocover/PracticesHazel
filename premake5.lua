@@ -64,14 +64,17 @@ workspace "Hazel"
 
 		filter "configurations:Debug"
 			defines "HZ_DEBUG"
+			buildoptions "/MDd"
 			symbols "on"
 
 		filter "configurations:Release"
 			defines "HZ_RELEASE"
+			buildoptions "/MD"
 			optimize "on"
 
 		filter "configurations:Dist"
 			defines "HZ_DIST"
+			buildoptions "/MD"
 			optimize "on"
 
 	project "Sandbox"
@@ -116,12 +119,15 @@ workspace "Hazel"
 
 		filter "configurations:Debug"
 			defines "HZ_DEBUG"
+			buildoptions "/MDd"
 			symbols "on"
 
 		filter "configurations:Release"
 			defines "HZ_RELEASE"
+			buildoptions "/MD"
 			optimize "on"
 
 		filter "configurations:Dist"
 			defines "HZ_DIST"
+			buildoptions "/MD"
 			optimize "on"

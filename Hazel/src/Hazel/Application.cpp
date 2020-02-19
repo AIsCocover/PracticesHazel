@@ -33,6 +33,12 @@ namespace Hazel {
 		{
 			glClearColor(1, 1, 0, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
+			
+			for (Layer* layer : m_LayerStack)	// 先渲染靠前的layer，再渲染靠后的layer。后渲染的layer会覆盖先渲染的layer。
+			{
+				layer->OnUpdate();
+			}
+
 			m_Window->OnUpdate();
 		}
 	}
@@ -44,11 +50,28 @@ namespace Hazel {
 		dispatcher.Dispatch<WindowCloseEvent>(HZ_BIND_EVENT_FN(Application::OnWindowClose));
 
 		HZ_CORE_TRACE("{0}", e.ToString());
+
+		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)	// 从后往前执行回调。即先执行最靠近屏幕的layer的回调。
+		{
+			(*--it)->OnEvent(e);
+			if (e.m_Handled)
+				break;
+		}
 	}
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)
 	{
 		m_Running = false;
 		return true;
+	}
+
+	void Application::PushLayer(Layer* layer)
+	{
+		m_LayerStack.PushLayer(layer);
+	}
+
+	void Application::PushOverlay(Layer* layer)
+	{
+		m_LayerStack.PushOverlay(layer);
 	}
 }
