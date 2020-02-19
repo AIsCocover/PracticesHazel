@@ -4,7 +4,7 @@
 #include "Hazel/Events/ApplicationEvent.h"
 #include "Hazel/Log.h"
 
-#include <GLFW/glfw3.h>
+#include <glad/glad.h>
 
 /*
 	std::bind可以把可调用对象保存起来，在需要时再调用。

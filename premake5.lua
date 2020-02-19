@@ -18,8 +18,10 @@ workspace "Hazel"
 	-- Include directories relative to root folder (solution directory)
 	IncludeDir = {}
 	IncludeDir["GLFW"] = "Hazel/vendor/GLFW/include"
+	IncludeDir["Glad"] = "Hazel/vendor/Glad/include"
 
 	include "Hazel/vendor/GLFW" -- this used to include glfw's premake5.lua(which is a project: GLFW)
+	include "Hazel/vendor/Glad" -- this used to include glad's premake5.lua(which is a project: Glad)
 
 	project "Hazel"
 		location "Hazel"
@@ -42,12 +44,14 @@ workspace "Hazel"
 		{
 			"%{prj.name}/src",
 			"%{prj.name}/vendor/spdlog/include",
-			"%{IncludeDir.GLFW}"
+			"%{IncludeDir.GLFW}",
+			"%{IncludeDir.Glad}"
 		}
 
 		links
 		{
 			"GLFW",
+			"Glad",
 			"opengl32.lib"
 		}
 
@@ -60,6 +64,7 @@ workspace "Hazel"
 			{
 				"HZ_PLATFORM_WINDOWS",
 				"HZ_BUILD_DLL",
+				"GLFW_INCLUDE_NONE"
 			}
 
 		filter "configurations:Debug"

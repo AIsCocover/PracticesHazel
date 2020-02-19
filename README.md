@@ -26,6 +26,8 @@
     - **Hazel.h** : 包含Application应用将会使用到的所有.h文件。
 * **vender\\** : 第三方模块代码submodules。
     - **spdlog** : [spdlog库](https://github.com/gabime/spdlog)。用于Log System。
+    - **GLFW** : [Thecherno/glfw](https://github.com/Thecherno/glfw)关于GLFW的子模块。
+    - **Glad** : 在[这里](glad.dav1d.de)生成。
 
 ### Sandbox
 
